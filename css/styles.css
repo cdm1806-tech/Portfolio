@@ -1,11 +1,15 @@
-/* Reset */
+/* ================= RESET ================= */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Body */
+html {
+    scroll-behavior: smooth;
+}
+
+/* ================= BASE ================= */
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
@@ -13,10 +17,34 @@ body {
     color: #e2e8f0;
 }
 
-/* Header */
+h2 {
+    font-size: 28px;
+}
+
+p {
+    max-width: 600px;
+}
+
+/* ================= LAYOUT ================= */
+.container {
+    max-width: 1100px;
+    margin: auto;
+    padding: 0 20px;
+}
+
+section {
+    padding: 60px 0;
+}
+
+section h2 {
+    margin-bottom: 20px;
+    color: #38bdf8;
+}
+
+/* ================= HEADER ================= */
 header {
     background: #020617;
-    padding: 15px 40px;
+    padding: 15px 20px;
 }
 
 nav {
@@ -41,25 +69,27 @@ nav ul {
 nav a {
     text-decoration: none;
     color: #e2e8f0;
+    padding: 5px;
+    transition: 0.3s;
 }
 
 nav a:hover {
     color: #38bdf8;
+    opacity: 0.8;
 }
 
-/* Container */
-.container {
-    max-width: 1100px;
-    margin: auto;
+nav a.active {
+    color: #38bdf8;
+    border-bottom: 2px solid #38bdf8;
 }
 
-/* Hero */
+/* ================= HERO ================= */
 #hero {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 40px;
-    padding: 80px 40px;
+    padding: 80px 20px;
     flex-wrap: wrap;
 }
 
@@ -77,31 +107,27 @@ nav a:hover {
     color: #94a3b8;
 }
 
-#hero button {
+#hero img {
+    width: 180px;
+    border-radius: 10px;
+}
+
+/* ================= BUTTONS (GLOBAL) ================= */
+button {
     padding: 10px 20px;
     border: none;
     background: #38bdf8;
     color: #020617;
     cursor: pointer;
     border-radius: 5px;
+    transition: 0.3s;
 }
 
-#hero img {
-    width: 180px;
-    border-radius: 10px;
+button:hover {
+    background: #0ea5e9;
 }
 
-/* Sections */
-section {
-    padding: 60px 20px;
-}
-
-section h2 {
-    margin-bottom: 20px;
-    color: #38bdf8;
-}
-
-/* Projects */
+/* ================= PROJECTS ================= */
 #projects {
     display: flex;
     flex-wrap: wrap;
@@ -109,18 +135,52 @@ section h2 {
 }
 
 .project {
-    background: #020617;
+    flex: 1 1 calc(50% - 20px);
+    min-height: 200px;
+    background: #162944;
     padding: 20px;
     border-radius: 10px;
-    flex: 1 1 calc(50% - 20px);
+    display: flex;
+    flex-direction: column;
     transition: 0.3s;
 }
 
 .project:hover {
     transform: translateY(-5px);
+    background: #020617;
 }
 
-/* Footer */
+.project button {
+    margin-top: auto;
+}
+
+/* ================= FORM ================= */
+form {
+    max-width: 600px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+#formMessage {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+/* ================= FOOTER ================= */
 footer {
     text-align: center;
     padding: 20px;
@@ -128,14 +188,50 @@ footer {
     margin-top: 20px;
 }
 
-/* Responsive */
+/* ================= UTILITIES ================= */
+.hidden {
+    display: none;
+}
+
+.light-mode {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+/* ================= RESPONSIVE ================= */
 @media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
     #hero {
         flex-direction: column;
         text-align: center;
     }
 
+    #hero img {
+        width: 120px;
+    }
+
     .project {
         flex: 1 1 100%;
+    }
+
+    h2 {
+        font-size: 22px;
+    }
+
+    p {
+        font-size: 14px;
+    }
+
+    button {
+        width: 100%;
     }
 }
