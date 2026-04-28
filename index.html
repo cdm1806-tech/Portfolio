@@ -6,39 +6,128 @@
     <title>John Chongoi | Portfolio</title>
 
     <link rel="stylesheet" href="css/styles.css">
-
 </head>
+
 <body>
 
-    <header>
+<header>
     <nav>
         <h1>John Chongoi</h1>
+
         <ul>
-            <li><a href="index.html" class="active">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="projects.html">Projects</a></li>
-            <li><a href="contact.html">Contact</a></li>
+            <li><a href="#home" class="nav-link active">Home</a></li>
+            <li><a href="#about" class="nav-link">About</a></li>
+            <li><a href="#projects" class="nav-link">Projects</a></li>
+            <li><a href="#contact" class="nav-link">Contact</a></li>
         </ul>
+
         <button id="themeToggle">Toggle Theme</button>
     </nav>
 </header>
 
 <main>
 
-    <section id="hero">
-        <div class="container">
-             <h2>Central Defensive Midfielder & Developer</h2>
-             <p>Focused on discipline, performance, and building systems.</p>
-             <button id="viewProjectsBtn">View Projects</button>
+<!-- ================= HOME ================= -->
+<section id="home">
+    <div class="container">
 
-        </div>
+        <h2>Central Defensive Midfielder & Developer</h2>
+        <p>Focused on discipline, performance, and building systems.</p>
+
+        <button id="viewProjectsBtn">View Projects</button>
 
         <div>
             <img src="images/John_Chongoi.jpeg" alt="John Chongoi portrait">
-        </div>    
-    </section>
+        </div>
 
-    
+    </div>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section id="about">
+    <div class="container">
+
+        <h2>About Me</h2>
+
+        <p>
+            Computer Science student at Kabarak University focused on web development and football.
+            Strong emphasis on discipline, performance, and continuous improvement.
+        </p>
+
+        <p id="aboutText" class="hidden">
+            I am a passionate computer science student with a keen interest in web development and football.
+            I strive to maintain discipline and excellence in all my endeavors.
+        </p>
+
+        <button id="toggleAboutBtn">Show/Hide About</button>
+
+    </div>
+</section>
+
+<!-- ================= PROJECTS ================= -->
+<section id="projects">
+    <div class="container">
+
+        <h2>Projects</h2>
+
+        <article class="project">
+            <h3>Employee Management System</h3>
+
+            <p class="short">Built with HTML, CSS, JS.</p>
+
+            <p class="full hidden">
+                Includes contact handling, structured UI, and interactive elements.
+            </p>
+
+            <button class="toggleProjectBtn">More Info</button>
+        </article>
+
+        <article class="project">
+            <h3>Web Crafts</h3>
+
+            <p class="short">Collection of web experiments and builds.</p>
+
+            <p class="full hidden">
+                Showcases various web development techniques and projects.
+            </p>
+
+            <button class="toggleProjectBtn">More Info</button>
+        </article>
+
+    </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section id="contact">
+    <div class="container">
+
+        <h2>Contact</h2>
+
+        <form id="contactForm">
+
+            <p id="formMessage"></p>
+
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" rows="5" required></textarea>
+            </div>
+
+            <button type="submit">Send Message</button>
+
+        </form>
+
+    </div>
+</section>
 
 </main>
 
@@ -46,8 +135,7 @@
     <p>© 2026 John Chongoi</p>
 </footer>
 
- <script src="js/script.js"></script>
-
+<script src="js/script.js"></script>
 
 </body>
 </html>
