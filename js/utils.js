@@ -1,5 +1,5 @@
 export function initScrollReveal() {
-    const elements = document.querySelectorAll("section, .project");
+    const elements = document.querySelectorAll("section, .card");
 
     const observer = new IntersectionObserver(entries => {
         entries.forEach(e => {

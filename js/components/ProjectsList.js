@@ -1,23 +1,50 @@
+import { state, setState } from "../state.js";
+
 export default function ProjectsList() {
+    let cards = [];
+
     return {
         mount(root) {
-            const container = root.getElementById("projects");
-            if (!container) return;
+            cards = root.querySelectorAll(".card");
 
-            container.addEventListener("click", (e) => {
-                const btn = e.target.closest(".toggleProjectBtn");
+            cards.forEach(card => {
+                const btn = card.querySelector(".toggleProjectBtn");
                 if (!btn) return;
 
-                const project = btn.closest(".project");
-                const full = project?.querySelector(".full");
-                if (!full) return;
+                if (btn.dataset.bound) return;
+                btn.dataset.bound = "true";
 
-                full.classList.toggle("hidden");
+                btn.addEventListener("click", () => {
+                    const id = Number(card.dataset.id);
 
-                btn.textContent =
-                    full.classList.contains("hidden")
-                        ? "More Info"
-                        : "Less Info";
+                    const updated = state.projects.map(p =>
+                        p.id === id
+                             ? { ...p, open: !p.open }
+                            : { ...p, open: false }
+);
+
+                    setState({ projects: updated });
+                });
+            });
+        },
+
+        update(state) {
+            cards.forEach(card => {
+                const id = Number(card.dataset.id);
+                const project = state.projects.find(p => p.id === id);
+
+                if (!project) return;
+
+                const full = card.querySelector(".full");
+                const btn = card.querySelector(".toggleProjectBtn");
+
+                if (!full || !btn) return;
+
+                full.classList.toggle("hidden", !project.open);
+
+                btn.textContent = project.open
+                    ? "Less Info"
+                    : "More Info";
             });
         }
     };

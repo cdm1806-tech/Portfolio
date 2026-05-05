@@ -11,32 +11,45 @@
 <body>
 
 <header>
-    <nav>
+    <nav class="container">
         <h1>John Chongoi</h1>
 
-        <ul>
-            <li><a href="#home" class="nav-link active">Home</a></li>
-            <li><a href="#about" class="nav-link">About</a></li>
-            <li><a href="#projects" class="nav-link">Projects</a></li>
-            <li><a href="#contact" class="nav-link">Contact</a></li>
-        </ul>
+        <!-- Sidebar toggle -->
+        <button id="menuToggle" class="btn btn-outline" aria-label="Open menu">☰</button>
 
-        <button id="themeToggle">Toggle Theme</button>
+        <!-- Overlay -->
+        <div id="overlay" class="overlay"></div>
+
+        <!-- Sidebar -->
+        <aside id="sidebar" class="sidebar">
+            <button id="closeSidebar" class="btn btn-outline" aria-label="Close menu">✕</button>
+
+            <div class="sidebar-nav">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+        </aside>
+
+        <!-- (Optional future desktop nav placeholder) -->
     </nav>
 </header>
 
 <main>
 
 <!-- ================= HOME ================= -->
-<section id="home">
+<section id="home" class="section">
     <div class="container">
 
         <h2>Central Defensive Midfielder & Developer</h2>
         <p>Focused on discipline, performance, and building systems.</p>
 
-        <button id="viewProjectsBtn">View Projects</button>
+        <button id="viewProjectsBtn" class="btn btn-primary">
+            View Projects
+        </button>
 
-        <div>
+        <div style="margin-top: 24px;">
             <img src="images/John_Chongoi.jpeg" alt="John Chongoi portrait">
         </div>
 
@@ -44,7 +57,7 @@
 </section>
 
 <!-- ================= ABOUT ================= -->
-<section id="about">
+<section id="about" class="section">
     <div class="container">
 
         <h2>About Me</h2>
@@ -59,70 +72,82 @@
             I strive to maintain discipline and excellence in all my endeavors.
         </p>
 
-        <button id="toggleAboutBtn">Show/Hide About</button>
+        <button id="toggleAboutBtn" class="btn btn-outline">
+            Show / Hide
+        </button>
 
     </div>
 </section>
 
 <!-- ================= PROJECTS ================= -->
-<section id="projects">
+<section id="projects" class="section">
     <div class="container">
 
         <h2>Projects</h2>
 
-        <article class="project">
-            <h3>Employee Management System</h3>
+        <div class="projects-grid">
 
-            <p class="short">Built with HTML, CSS, JS.</p>
+            <article class="card" data-id="1">
+                <h3>Employee Management System</h3>
 
-            <p class="full hidden">
-                Includes contact handling, structured UI, and interactive elements.
-            </p>
+                <p class="short">Built with HTML, CSS, JS.</p>
 
-            <button class="toggleProjectBtn">More Info</button>
-        </article>
+                <p class="full hidden">
+                    Includes contact handling, structured UI, and interactive elements.
+                </p>
 
-        <article class="project">
-            <h3>Web Crafts</h3>
+                <button class="btn btn-primary toggleProjectBtn">
+                    More Info
+                </button>
+            </article>
 
-            <p class="short">Collection of web experiments and builds.</p>
+            <article class="card" data-id="2">
+                <h3>Web Crafts</h3>
 
-            <p class="full hidden">
-                Showcases various web development techniques and projects.
-            </p>
+                <p class="short">Collection of web experiments and builds.</p>
 
-            <button class="toggleProjectBtn">More Info</button>
-        </article>
+                <p class="full hidden">
+                    Showcases various web development techniques and projects.
+                </p>
+
+                <button class="btn btn-primary toggleProjectBtn">
+                    More Info
+                </button>
+            </article>
+
+        </div>
 
     </div>
 </section>
 
 <!-- ================= CONTACT ================= -->
-<section id="contact">
+<section id="contact" class="section">
     <div class="container">
 
         <h2>Contact</h2>
 
         <form id="contactForm">
 
-            <p id="formMessage"></p>
+            <p id="formMessage" class="form-message"></p>
 
             <div class="form-group">
                 <label for="name">Name</label>
-                <input type="text" id="name" required>
+                <input class="input" type="text" id="name" required>
             </div>
 
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" id="email" required>
+                <input class="input" type="email" id="email" required>
             </div>
 
             <div class="form-group">
                 <label for="message">Message</label>
-                <textarea id="message" rows="5" required></textarea>
+                <textarea class="input" id="message" rows="5" required></textarea>
             </div>
 
-            <button type="submit">Send Message</button>
+            <button type="submit" class="btn btn-primary">
+                Send Message
+            </button>
 
         </form>
 
@@ -132,7 +157,7 @@
 </main>
 
 <footer>
-    <p>© 2026 John Chongoi</p>
+    <p class="text-center">© 2026 John Chongoi</p>
 </footer>
 
 <script type="module" src="js/app.js"></script>

@@ -1,10 +1,15 @@
 export default function ContactForm() {
+    let form, message;
+
     return {
         mount(root) {
-            const form = root.getElementById("contactForm");
-            const message = root.getElementById("formMessage");
+            form = root.getElementById("contactForm");
+            message = root.getElementById("formMessage");
 
             if (!form || !message) return;
+
+            if (form.dataset.bound) return;
+            form.dataset.bound = "true";
 
             form.addEventListener("submit", (e) => {
                 e.preventDefault();

@@ -2,6 +2,10 @@ import { state, setState } from "./state.js";
 
 export function initRouter() {
     document.querySelectorAll(".nav-link").forEach(link => {
+
+        if (link.dataset.bound) return;
+        link.dataset.bound = "true";
+
         link.addEventListener("click", (e) => {
             e.preventDefault();
             navigate(link.getAttribute("href"));

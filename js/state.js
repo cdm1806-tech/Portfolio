@@ -1,7 +1,14 @@
+import { components } from "./app.js";
+
 export const state = {
     theme: "dark",
     currentSection: "#home",
     aboutVisible: false,
+
+     projects: [
+        { id: 1, open: false },
+        { id: 2, open: false }
+    ]
 };
 
 export function setState(updates) {
@@ -11,19 +18,8 @@ export function setState(updates) {
 }
 
 export function render() {
-    document.body.classList.toggle("light-mode", state.theme === "light");
-
-    document.querySelectorAll(".nav-link").forEach(link => {
-        link.classList.toggle(
-            "active",
-            link.getAttribute("href") === state.currentSection
-        );
-    });
-
-    const about = document.getElementById("aboutText");
-    if (about) {
-        about.classList.toggle("hidden", !state.aboutVisible);
-    }
+    // 🔴 SINGLE SOURCE OF TRUTH → COMPONENTS HANDLE UI
+    components.forEach(c => c.update?.(state));
 }
 
 export function persistState() {
