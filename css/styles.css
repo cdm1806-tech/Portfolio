@@ -199,7 +199,7 @@ nav {
 }
 
 #home img:hover {
-  transform: translateY(-4px) scale(1.02);
+  transform: translateY(-4px) scale(1.15);
 }
 
 /* ================= BUTTONS ================= */
@@ -234,27 +234,110 @@ nav {
 
 /* ================= CARDS ================= */
 .card {
-  flex: 1 1 calc(50% - 20px);
-  min-height: 200px;
-
-  background: var(--color-surface);
-  padding: var(--space-2);
+  background: #020617;
   border-radius: var(--radius-md);
-
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-1);
+  border: 1px solid rgba(56,189,248,0.08);
 
   box-shadow: var(--shadow-sm);
   transition: var(--transition);
 
-  border: 1px solid rgba(56,189,248,0.08);
+  display: flex;
+  flex-direction: column;
+
+  overflow: hidden;
+  min-height: 100%;
 }
 
 .card:hover {
   transform: translateY(-6px);
   box-shadow: var(--shadow-md);
   border-color: var(--color-primary);
+}
+
+.card-image {
+  width: 100%;
+  height: 160px;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.card-image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  
+}
+
+.card h3 {
+  padding: var(--space-2) var(--space-2) 0;
+}
+
+.card .short,
+.card .full {
+  padding: 0 var(--space-2);
+  color: var(--color-muted);
+}
+
+.card:hover .card-image img {
+  transform: scale(1.05);
+}
+
+#projects .container > div {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-3);
+  align-items: stretch;
+}
+
+/* ================= PROJECT LINKS (CRITICAL FIX) ================= */
+.project-links {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+
+  padding: var(--space-2);
+  margin-top: auto;
+
+  display: inline-block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  color: var(--color-primary);
+}
+
+.card .toggleProjectBtn {
+  margin: 0 var(--space-2) var(--space-2);
+}
+
+.project-links a {
+  display: inline-block;
+  text-decoration: none;
+  text-align: center;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 0 var(--space-2);
+  margin-top: 6px;
+}
+
+.tag {
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 999px;
+
+  background: rgba(56,189,248,0.12);
+  color: var(--color-primary);
+  border: 1px solid rgba(56,189,248,0.25);
 }
 
 /* ================= FORM ================= */
@@ -327,5 +410,9 @@ footer {
 
   .sidebar {
     width: 100%;
+  }
+
+  .project-links {
+    flex-direction: column;
   }
 }

@@ -1,51 +1,69 @@
 import { state, setState } from "../state.js";
 
 export default function ProjectsList() {
-    let cards = [];
+    let root;
 
     return {
-        mount(root) {
-            cards = root.querySelectorAll(".card");
+        mount(dom) {
+            root = dom.getElementById("projectsRoot");
+            if (!root) return;
 
-            cards.forEach(card => {
-                const btn = card.querySelector(".toggleProjectBtn");
+            root.addEventListener("click", (e) => {
+                const btn = e.target.closest(".toggleProjectBtn");
                 if (!btn) return;
 
-                if (btn.dataset.bound) return;
-                btn.dataset.bound = "true";
+                const id = Number(btn.dataset.id);
 
-                btn.addEventListener("click", () => {
-                    const id = Number(card.dataset.id);
+                const updated = state.projects.map(p =>
+                    p.id === id ? { ...p, open: !p.open } : p
+                );
 
-                    const updated = state.projects.map(p =>
-                        p.id === id
-                             ? { ...p, open: !p.open }
-                            : { ...p, open: false }
-);
-
-                    setState({ projects: updated });
-                });
+                setState({ projects: updated });
             });
         },
 
         update(state) {
-            cards.forEach(card => {
-                const id = Number(card.dataset.id);
-                const project = state.projects.find(p => p.id === id);
+            if (!root) {
+                console.warn("Projects root not found");
+            }
 
-                if (!project) return;
+            root.innerHTML = state.projects.map(p => `
+                <article class="card">
 
-                const full = card.querySelector(".full");
-                const btn = card.querySelector(".toggleProjectBtn");
+                    <div class="card-image">
+                        <img src="${p.image || ''}" alt="${p.title || ''}">
+                    </div>
 
-                if (!full || !btn) return;
+                    <h3>${p.title || ""}</h3>
 
-                full.classList.toggle("hidden", !project.open);
+                    <div class="tags">
+                        ${(p.tags || []).map(tag => `
+                            <span class="tag">${tag}</span>  
+                        `).join("")}
+                    </div>
 
-                btn.textContent = project.open
-                    ? "Less Info"
-                    : "More Info";
-            });
+                    <p class="short">${p.short || ""}</p>
+
+                    <p class="full ${p.open ? "" : "hidden"}">
+                        ${p.full || ""}
+                    </p>
+
+                    <!-- LINKS -->
+                    <div class="project-links">
+                       <div class="project-links">
+                            ${p.live ? `<a href="${p.live}" target="_blank" class="btn btn-outline">Live</a>` : ""}
+                            ${p.github ? `<a href="${p.github}" target="_blank" class="btn btn-outline">Code</a>` : ""}
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary toggleProjectBtn" data-id="${p.id}">
+                        ${p.open ? "Less Info" : "More Info"}
+                    </button>
+
+                </article>
+            `).join("");
+
+            console.log("PROJECT ITEM:", p);
         }
     };
 }
