@@ -52,20 +52,25 @@ body {
 
 /* ================= LAYOUT ================= */
 .container {
+  width: 100%;
   max-width: 1100px;
+
   margin: auto;
   padding: 0 var(--space-2);
 }
 
 .section {
   min-height: 100vh;
-  padding: var(--space-5) var(--space-2);
+  padding:  80px var(--space-2);
   display: flex;
+  display: block;
   align-items: center;
 
   opacity: 0;
   transform: translateY(30px);
   transition: 0.6s ease;
+
+  overflow: hidden;
 }
 
 .section.active-section {
@@ -207,9 +212,16 @@ nav {
   padding: var(--space-1) var(--space-2);
   border-radius: var(--radius-sm);
   border: none;
+
   cursor: pointer;
   font-weight: 500;
+
   transition: var(--transition);
+  will-change: transform;
+}
+
+.btn:active {
+  transform: scale(0.96);
 }
 
 .btn-primary {
@@ -246,6 +258,12 @@ nav {
 
   overflow: hidden;
   min-height: 100%;
+
+  cursor: pointer;
+}
+
+.card:active {
+  transform: scale(0.98);
 }
 
 .card:hover {
@@ -280,6 +298,10 @@ nav {
   padding: var(--space-2) var(--space-2) 0;
 }
 
+.card:hover h3 {
+  color: var(--color-primary);
+}
+
 .card .short,
 .card .full {
   padding: 0 var(--space-2);
@@ -288,6 +310,29 @@ nav {
 
 .card:hover .card-image img {
   transform: scale(1.05);
+}
+
+.card .toggleProjectBtn {
+  margin: 0 var(--space-2) var(--space-2);
+}
+
+/* ================= PROJECTS GRID ================= */
+
+.projects-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(auto-fit, minmax(280px, 1fr));
+
+  gap: 20px;
+
+  width: 100%;
+  margin-top: var(--space-3);
+}
+
+/* Prevent cards from overflowing sections */
+.projects-grid .card {
+  height: 100%;
 }
 
 #projects .container > div {
@@ -304,16 +349,12 @@ nav {
   flex-wrap: wrap;
 
   padding: var(--space-2);
-  margin-top: auto;
+  margin-top: var(--space-1);
 
   display: inline-block !important;
   visibility: visible !important;
   opacity: 1 !important;
   color: var(--color-primary);
-}
-
-.card .toggleProjectBtn {
-  margin: 0 var(--space-2) var(--space-2);
 }
 
 .project-links a {
@@ -335,9 +376,39 @@ nav {
   padding: 4px 8px;
   border-radius: 999px;
 
-  background: rgba(56,189,248,0.12);
+  background: rgba(56,189,248,0.1);
   color: var(--color-primary);
   border: 1px solid rgba(56,189,248,0.25);
+}
+
+.tag-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: var(--space-3);
+}
+
+.tag-filter-btn {
+  height: fit-content;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(56,189,248,0.2);
+
+  background: transparent;
+  color: var(--color-text);
+
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.tag-filter-btn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.tag-filter-btn.active {
+  background: var(--color-primary);
+  color: #020617;
 }
 
 /* ================= FORM ================= */
@@ -370,8 +441,8 @@ footer {
 /* ================= REVEAL SYSTEM ================= */
 .reveal {
   opacity: 0;
-  transform: translateY(20px);
-  transition: 0.6s ease;
+  transform: translateY(18px);
+  transition: opacity 0.6s ease transform 0.6s ease;
 }
 
 .reveal.active {
@@ -414,5 +485,146 @@ footer {
 
   .project-links {
     flex-direction: column;
+  }
+}
+
+/* ================= MODAL ================= */
+
+.modal-open {
+  overflow: hidden;
+}
+
+body.modal-open ,
+html.modal-open {
+  overflow: hidden;
+}
+body.modal-open {
+  overflow: hidden;
+  padding-right: 6px; /* prevents layout shift from scrollbar removal */
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(8px);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 20px;
+
+  z-index: 5000;
+
+  opacity: 0;
+  animation: fadeIn 0.25s ease forwards;
+}
+
+.modal {
+  width: 90%;
+  max-width: 700px;
+
+  overflow: hidden;
+  background: var(--color-surface);
+
+  border-radius: var(--radius-md);
+
+  border: 1px solid rgba(56,189,248,0.12);
+  padding: var(--space-2);
+
+  position: relative;
+  z-index: 5001;
+
+  transform: scale(1);
+  opacity: 0;
+  animation: modalIn 0.25s forwards;
+}
+
+.modal-image img,
+.card-image img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+}
+
+.card-image,
+.modal-image {
+  width: 100%;
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+}
+
+.modal h2,
+.modal p,
+.modal .tags,
+.modal .project-links {
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.modal h2 {
+  margin-top: 20px;
+}
+
+.modal p {
+  margin-top: 12px;
+  margin-bottom: 24px;
+}
+
+.modal .project-links {
+  display: flex;
+  gap: 12px;
+  padding-bottom: 24px;
+}
+
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+
+  width: 40px;
+  height: 40px;
+
+  border: none;
+  border-radius: 50%;
+
+  cursor: pointer;
+
+  background: rgba(0,0,0,0.5);
+  color: white;
+
+  font-size: 18px;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+@keyframes modalUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes popIn {
+  to {
+    opacity: 1;
+    transform: translate(0) scale(1);
+  }
+}
+
+@keyframes modalIn {
+  to {
+    transform: scale(1);
+    opacity: 1;
   }
 }

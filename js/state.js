@@ -20,6 +20,8 @@ export const state = {
     theme: "dark",
     currentSection: "#home",
     aboutVisible: false,
+    filterTag: "All",
+    activeProject: null,
 
     projects: [
         {
@@ -121,4 +123,9 @@ export function loadState() {
 
 export function getComponents() {
     return components;
+}
+
+export function getAllTags() {
+    const tags = state.projects.flatMap(p => p.tags || []);
+    return ["All", ...new Set(tags)];
 }

@@ -5,15 +5,18 @@ import ThemeToggle from "./components/ThemeToggle.js";
 import { initSidebar } from "./components/sidebar.js";
 import AboutToggle from "./components/AboutToggle.js";
 import ProjectsList from "./components/ProjectsList.js";
+import ProjectModal from "./components/ProjectModal.js";
 import ContactForm from "./components/ContactForm.js";
 import HeroCTA from "./components/HeroCTA.js";
 import { getComponents } from "./state.js";
+
 import { initScrollReveal, initInitialAnimation } from "./utils.js";
 
 /* ================= REGISTER COMPONENTS ================= */
 register(ThemeToggle());
 register(AboutToggle());
 register(ProjectsList());
+register(ProjectModal());
 register(ContactForm());
 register(HeroCTA());
 

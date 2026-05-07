@@ -1,69 +1,176 @@
-import { state, setState } from "../state.js";
+import { state, setState, getAllTags } from "../state.js";
 
 export default function ProjectsList() {
+
     let root;
 
+    function setFilter(tag) {
+        setState({
+            filterTag: tag
+        });
+    }
+
+    function openProject(id) {
+
+        const project = state.projects.find(p => p.id === id);
+
+        if (!project) return;
+
+        setState({
+            activeProject: project
+        });
+    }
+
     return {
+
         mount(dom) {
+
             root = dom.getElementById("projectsRoot");
-            if (!root) return;
 
+            if (!root) {
+                console.warn("Projects root not found");
+                return;
+            }
+
+            // ================= EVENT DELEGATION =================
             root.addEventListener("click", (e) => {
-                const btn = e.target.closest(".toggleProjectBtn");
-                if (!btn) return;
 
-                const id = Number(btn.dataset.id);
+                // ================= FILTER BUTTON =================
+                const filterBtn = e.target.closest(".tag-filter-btn");
 
-                const updated = state.projects.map(p =>
-                    p.id === id ? { ...p, open: !p.open } : p
-                );
+                if (filterBtn) {
+                    setFilter(filterBtn.dataset.tag);
+                    return;
+                }
 
-                setState({ projects: updated });
+                // ================= PROJECT CARD =================
+                const card = e.target.closest(".card");
+
+                if (!card) return;
+
+                const id = Number(card.dataset.id);
+
+                openProject(id);
             });
         },
 
         update(state) {
-            if (!root) {
-                console.warn("Projects root not found");
-            }
 
-            root.innerHTML = state.projects.map(p => `
-                <article class="card">
+            if (!root) return;
 
-                    <div class="card-image">
-                        <img src="${p.image || ''}" alt="${p.title || ''}">
-                    </div>
+            // ================= FILTERED PROJECTS =================
+            const filtered = state.filterTag === "All"
 
-                    <h3>${p.title || ""}</h3>
+                ? state.projects
 
-                    <div class="tags">
-                        ${(p.tags || []).map(tag => `
-                            <span class="tag">${tag}</span>  
-                        `).join("")}
-                    </div>
+                : state.projects.filter(p =>
+                    p.tags?.includes(state.filterTag)
+                );
 
-                    <p class="short">${p.short || ""}</p>
+            // ================= FILTERS =================
+            const filtersHTML = `
+                <div class="tag-filters">
 
-                    <p class="full ${p.open ? "" : "hidden"}">
-                        ${p.full || ""}
-                    </p>
+                    ${getAllTags().map(tag => `
 
-                    <!-- LINKS -->
-                    <div class="project-links">
-                       <div class="project-links">
-                            ${p.live ? `<a href="${p.live}" target="_blank" class="btn btn-outline">Live</a>` : ""}
-                            ${p.github ? `<a href="${p.github}" target="_blank" class="btn btn-outline">Code</a>` : ""}
-                        </div>
-                    </div>
+                        <button
+                            class="
+                                tag-filter-btn
+                                ${state.filterTag === tag ? "active" : ""}
+                            "
+                            data-tag="${tag}"
+                        >
+                            ${tag}
+                        </button>
 
-                    <button class="btn btn-primary toggleProjectBtn" data-id="${p.id}">
-                        ${p.open ? "Less Info" : "More Info"}
-                    </button>
+                    `).join("")}
 
-                </article>
-            `).join("");
+                </div>
+            `;
 
-            console.log("PROJECT ITEM:", p);
+            // ================= RENDER =================
+            root.innerHTML = `
+
+                ${filtersHTML}
+
+                <div class="projects-grid">
+
+                    ${filtered.map(p => `
+
+                        <article
+                            class="card"
+                            data-id="${p.id}"
+                        >
+
+                            <!-- IMAGE -->
+                            <div class="card-image">
+
+                                <img
+                                    src="${p.image || ""}"
+                                    alt="${p.title || ""}"
+                                    loading="lazy"
+                                >
+
+                            </div>
+
+                            <!-- TITLE -->
+                            <h3>
+                                ${p.title || ""}
+                            </h3>
+
+                            <!-- TAGS -->
+                            <div class="tags">
+
+                                ${(p.tags || []).map(tag => `
+
+                                    <span class="tag">
+                                        ${tag}
+                                    </span>
+
+                                `).join("")}
+
+                            </div>
+
+                            <!-- SHORT DESCRIPTION -->
+                            <p class="short">
+                                ${p.short || ""}
+                            </p>
+
+                            <!-- LINKS -->
+                            <div class="project-links">
+
+                                ${p.live ? `
+
+                                    <a
+                                        href="${p.live}"
+                                        target="_blank"
+                                        class="btn btn-outline"
+                                    >
+                                        Live
+                                    </a>
+
+                                ` : ""}
+
+                                ${p.github ? `
+
+                                    <a
+                                        href="${p.github}"
+                                        target="_blank"
+                                        class="btn btn-outline"
+                                    >
+                                        Code
+                                    </a>
+
+                                ` : ""}
+
+                            </div>
+
+                        </article>
+
+                    `).join("")}
+
+                </div>
+            `;
         }
     };
 }
