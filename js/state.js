@@ -3,7 +3,7 @@
 export const STATE_VERSION = 1;
 
 /* ================= COMPONENT REGISTRY ================= */
-const components = [];
+export const components = [];
 
 export function register(component) {
     if (!component) {
@@ -23,31 +23,10 @@ export const state = {
     filterTag: "All",
     activeProject: null,
 
-    projects: [
-        {
-            id: 1,
-            title: "Employee Management System",
-            short: "Built with HTML, CSS, JS.",
-            full: "Includes contact handling, structured UI, and interactive elements.",
-            image: "images/employee-system.jpeg",
-            live: "https://cdm1806-tech.github.io/employee-management-app/",
-            github: "https://github.com/cdm1806-tech/employee-management-app",
-            open: false,
-            tags: ["HTML", "CSS", "JavaScript"]
-        },
-        {
-            id: 2,
-            title: "Web Crafts",
-            short: "Collection of web experiments and builds.",
-            full: "Showcases various web development techniques and projects.",
-            image: "images/web-crafts.jpeg",
-            live: "https://cdm1806-tech.github.io/Web_matrix/",
-            github: "https://github.com/cdm1806-tech/Web_matrix",
-            open: false,
-            tags: ["HTML", "CSS", "JavaScript"]
-        }
-    ]
+    projects: []
 };
+
+window.state = state; // for debugging only
 
 /* ================= STATE UPDATE ================= */
 export function setState(updates) {

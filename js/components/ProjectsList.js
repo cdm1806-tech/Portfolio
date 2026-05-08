@@ -1,4 +1,5 @@
 import { state, setState, getAllTags } from "../state.js";
+import { openProjectRoute } from "../router.js";
 
 export default function ProjectsList() {
 
@@ -19,6 +20,8 @@ export default function ProjectsList() {
         setState({
             activeProject: project
         });
+
+        openProjectRoute(project.slug);
     }
 
     return {
@@ -56,7 +59,8 @@ export default function ProjectsList() {
 
         update(state) {
 
-            if (!root) return;
+           if (!root) return;
+            if (!Array.isArray(state.projects)) return;
 
             // ================= FILTERED PROJECTS =================
             const filtered = state.filterTag === "All"

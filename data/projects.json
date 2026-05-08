@@ -1,0 +1,27 @@
+[
+  {
+    "id": 1,
+    "slug": "Employee-management-system",
+    "title": "Employee Management System",
+    "short": "Built with HTML, CSS, JS.",
+    "full": "Includes contact handling, structured UI, and interactive elements.",
+    "image": "images/employee-system.jpeg",
+    "live": "https://cdm1806-tech.github.io/employee-management-app/",
+    "github": "https://github.com/cdm1806-tech/employee-management-app",
+    "tags": ["HTML", "CSS", "JavaScript"],
+    "open": false
+  },
+
+  {
+    "id": 2,
+    "slug": "Web-crafts",
+    "title": "Web Crafts",
+    "short": "Collection of web experiments and builds.",
+    "full": "Showcases various web development techniques and projects.",
+    "image": "images/web-crafts.jpeg",
+    "live": "https://cdm1806-tech.github.io/Web_matrix/",
+    "github": "https://github.com/cdm1806-tech/Web_matrix",
+    "tags": ["Frontend", "UI"],
+    "open": false
+  }
+]

@@ -486,6 +486,26 @@ footer {
   .project-links {
     flex-direction: column;
   }
+
+  .modal {
+  padding: 16px;
+}
+
+.modal h2,
+.modal p,
+.modal .tags,
+.modal .project-links {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.modal-image {
+  height: 220px;
+}
+
+.modal .project-links {
+  flex-direction: column;
+}
 }
 
 /* ================= MODAL ================= */
@@ -507,7 +527,7 @@ body.modal-open {
   position: fixed;
   inset: 0;
 
-  background: rgba(0,0,0,0.7);
+  background: rgba(2,6,23,0.82);
   backdrop-filter: blur(8px);
 
   display: flex;
@@ -523,11 +543,12 @@ body.modal-open {
 }
 
 .modal {
-  width: 90%;
+  width: min(92%, 700px);
   max-width: 700px;
 
   overflow: hidden;
-  background: var(--color-surface);
+  background:  rgba(22, 41, 68, 0.92);
+  backdrop-filter: blur(16px);
 
   border-radius: var(--radius-md);
 
@@ -539,7 +560,7 @@ body.modal-open {
 
   transform: scale(1);
   opacity: 0;
-  animation: modalIn 0.25s forwards;
+  animation: modalIn 0.32s cubic-bezier(.22,.61,.36,1) forwards;
 }
 
 .modal-image img,
@@ -548,6 +569,7 @@ body.modal-open {
   height: 200px;
   object-fit: cover;
   display: block;
+  transition: transform 0.6s ease;
 }
 
 .card-image,
@@ -580,27 +602,55 @@ body.modal-open {
   padding-bottom: 24px;
 }
 
+.modal-content {
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
 .modal-close {
   position: absolute;
   top: 16px;
   right: 16px;
 
-  width: 40px;
-  height: 40px;
+  width: 42px;
+  height: 42px;
 
   border: none;
   border-radius: 50%;
 
+  cursor: flex;
+  justify-content: center;
+  align-items: center;
+
   cursor: pointer;
 
-  background: rgba(0,0,0,0.5);
+  background: rgba(255,255,255,0.08);
   color: white;
 
   font-size: 18px;
+  transition: var(--transition);
+
+  backdrop-filter: blur(10px);
+}
+
+.modal-close:hover {
+  background: var(--color-primary);
+  color: #020617;
+  transform: rotate(90deg);
+}
+
+.modal:hover .modal-image img {
+  transform: scale(1.03);
 }
 
 @keyframes fadeIn {
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes modalUp {

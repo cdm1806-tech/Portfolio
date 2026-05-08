@@ -1,4 +1,5 @@
 import { setState } from "../state.js";
+import { closeProjectRoute } from "../router.js";
 
 export default function ProjectModal() {
 
@@ -8,6 +9,7 @@ export default function ProjectModal() {
     function closeModal() {
         setState({ activeProject: null });
         document.body.classList.remove("modal-open");
+        closeProjectRoute(project.id);
     }
 
     function handleKeydown(e) {
@@ -69,6 +71,12 @@ export default function ProjectModal() {
                     <div class="modal">
 
                         <button class="modal-close">✕</button>
+
+                        <div class="modal-content">
+
+                            <!-- everything inside modal -->
+
+                        </div>
 
                         <div class="modal-image">
                             <img src="${p.image || ""}" alt="${p.title || ""}">
